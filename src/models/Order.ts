@@ -1,6 +1,7 @@
 
+import { Schema, model } from "mongoose";
 
-const orderSchema = new v3.Schema({
+const orderSchema = new Schema({
 
   invoiceNo: { type: String, required: true, unique: true },
   cashier: { type: Schema.Types.ObjectId, ref: "User", required: true },

@@ -1,18 +1,15 @@
-import dotenv from "dotenv";
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import { connectDB } from "./config/db.js";
-
-dotenv.config();
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/products.routes.js";
 import orderRoutes from "./routes/orders.routes.js";
 import customerRoutes from "./routes/customers.routes.js";
 import reportRoutes from "./routes/reports.routes.js";
-
 const app = express();
 app.use(helmet());
 app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
@@ -23,16 +20,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/reports", reportRoutes);
-
 app.get("/health", (_, res) => res.json({ ok: true }));
-
 const PORT = Number(process.env.PORT) || 5000;
-
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => console.log(`✓ API server running on http://localhost:${PORT}`));
-  })
-  .catch((error) => {
-    console.error("Failed to start server:", error);
-    process.exit(1);
-  });
+connectDB().then(() => app.listen(PORT, () => console.log(`API on :${PORT}`)));
+//# sourceMappingURL=server.js.map
