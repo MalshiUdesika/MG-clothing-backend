@@ -2,8 +2,8 @@ import type { Response } from "express";
 import { z } from "zod";
 import { Customer } from "../models/Customer.js";
 import { Order } from "../models/Order.js";
-import { Product } from "../models/Product.js";
 import type { AuthRequest } from "../middleware/auth.middleware.js";
+import { Product } from "../models/Products.js";
 
 const orderSchema = z.object({
   customerId: z.string().optional(),

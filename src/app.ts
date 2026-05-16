@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
-
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import customerRoutes from "./routes/customer.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import reportRoutes from "./routes/report.routes.js";
-import { notFound, errorHandler } from "./middleware/error.middleware.js";
+import { errorHandler, notFound } from "./middleware/error.middleware.js";
 
 export const app = express();
 

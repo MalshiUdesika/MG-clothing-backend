@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { z } from "zod";
-import { Product } from "../models/Product.js";
+import { Product } from "../models/Products.js";
 
 const productSchema = z.object({
   name: z.string().min(1),

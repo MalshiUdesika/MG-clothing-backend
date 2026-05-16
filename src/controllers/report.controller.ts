@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { Order } from "../models/Order.js";
-import { Product } from "../models/Product.js";
 import { Customer } from "../models/Customer.js";
+import { Product } from "../models/Products.js";
 
 export async function getDashboardStats(_req: Request, res: Response) {
   const orders = await Order.find({ status: "paid" });
