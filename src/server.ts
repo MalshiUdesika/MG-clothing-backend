@@ -1,38 +1,22 @@
 import dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-import morgan from "morgan";
-import rateLimit from "express-rate-limit";
+import { app } from "./app.js";
 import { connectDB } from "./config/db.js";
 
 dotenv.config();
-import authRoutes from "./routes/auth.routes.js";
-import productRoutes from "./routes/products.routes.js";
-import orderRoutes from "./routes/orders.routes.js";
-import customerRoutes from "./routes/customers.routes.js";
-import reportRoutes from "./routes/reports.routes.js";
 
-const app = express();
-app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
-app.use(express.json({ limit: "1mb" }));
-app.use(morgan("dev"));
-app.use("/api/auth", rateLimit({ windowMs: 15 * 60 * 1000, max: 20 }), authRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/customers", customerRoutes);
-app.use("/api/reports", reportRoutes);
+const PORT = process.env.PORT || 5000;
 
-app.get("/health", (_, res) => res.json({ ok: true }));
+async function startServer() {
+  try {
+    await connectDB();
 
-const PORT = Number(process.env.PORT) || 5000;
-
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => console.log(`✓ API server running on http://localhost:${PORT}`));
-  })
-  .catch((error) => {
+    app.listen(PORT, () => {
+      console.log(`MG Clothing backend running on port ${PORT}`);
+    });
+  } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
-  });
+  }
+}
+
+startServer();
